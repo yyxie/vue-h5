@@ -21,22 +21,22 @@
 <script>
   // Use Vuex
   import store from './store'
-  import './test.css';
+  import './test.css'
 
   export default {
     computed: {
-      count() {
+      count () {
         return store.state.count
       }
     },
     methods: {
-      increment() {
+      increment () {
         store.commit('increment')
       },
-      decrement() {
+      decrement () {
         store.commit('decrement')
       },
-      bindDateChange() {
+      bindDateChange () {
         console.log('ddddd')
       }
     }
@@ -55,10 +55,11 @@
     color: blue;
     border: 1px solid blue;
   }
+
   .test-border {
     background-color: dodgerblue;
     width: 500px;
-    height:500px;
+    height: 500px;
     margin-top: 0.1px;
   }
 
