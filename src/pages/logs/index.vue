@@ -5,6 +5,8 @@
         <card :text="(index + 1) + ' . ' + log"></card>
       </li>
     </ul>
+    <input v-model="inputVal">
+    <span>{{inputVal}}</span>
   </div>
 </template>
 
@@ -19,7 +21,8 @@
 
     data () {
       return {
-        logs: []
+        logs: [],
+        inputVal: ''
       }
     },
 

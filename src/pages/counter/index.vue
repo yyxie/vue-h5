@@ -21,12 +21,17 @@
 <script>
   // Use Vuex
   import store from './store'
-  import './test.css'
+  import './test.less'
 
   export default {
+    data () {
+      return {
+        a: '1'
+      }
+    },
     computed: {
       count () {
-        return store.state.count
+        return this.a + store.state.count
       }
     },
     methods: {

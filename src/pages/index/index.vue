@@ -1,105 +1,88 @@
 <template>
   <div class="container" @click="clickHandle('test click', $event)">
-
-    <div class="userinfo" @click="bindViewTap">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover"/>
-      <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
-      </div>
-    </div>
-
-    <div class="usermotto">
-      <div class="user-motto">
-        <card :text="motto"></card>
-      </div>
-    </div>
-
-    <form class="form-container">
-      <input type="text" class="form-control" v-model="motto" placeholder="v-model"/>
-      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy"/>
-    </form>
-    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
+    <Swipe :autoplay="3000">
+      <SwipeItem v-for="(image, index) in images" :key="index">
+        <img v-lazy="image" class="swipe-img"/>
+      </SwipeItem>
+    </Swipe>
+    <ul
+      v-waterfall-lower="loadMore"
+      waterfall-disabled="disabled"
+      waterfall-offset="400"
+    >
+      <li v-for="(item, index) in list" :key="index">
+        <Card
+          title="标题"
+          desc="描述"
+          num="2"
+          price="2.00"
+          :thumb="imageURL"
+        >
+          <div slot="footer">
+            <Button size="mini">{{item}}</Button>
+            <Button size="mini">{{item}}</Button>
+          </div>
+        </Card>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
   import card from '@/components/card'
+  import {Swipe, SwipeItem, Card, Waterfall} from 'vant';
 
   export default {
     data () {
       return {
         motto: 'Hello World',
-        userInfo: {}
+        userInfo: {},
+        images: [
+          'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527777119153&di=ded579e6a0b02905fa25ceaa54869a04&imgtype=0&src=http%3A%2F%2Fimage1.92bizhi.com%2Fart_vector-widescreen--01_06-2560x1600.jpg',
+          'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527777119153&di=f13faebe69df0c5f48b2594bbb8722b6&imgtype=0&src=http%3A%2F%2Fdl.bizhi.sogou.com%2Fimages%2F2012%2F04%2F11%2F155553.jpg'
+        ],
+        list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        disabled: false,
+        imageURL: 'https://img.yzcdn.cn/upload_files/2017/07/02/af5b9f44deaeb68000d7e4a711160c53.jpg'
       }
     },
 
     components: {
-      card
+      card,
+      Swipe,
+      SwipeItem,
+      Card,
+      Waterfall
     },
-
+    directives: {
+      WaterfallLower: Waterfall('lower')
+    },
     methods: {
-      bindViewTap () {
-        const url = '../logs/main'
-        wx.navigateTo({url})
-      },
-      getUserInfo () {
-        // 调用登录接口
-        wx.login({
-          success: () => {
-            wx.getUserInfo({
-              success: (res) => {
-                this.userInfo = res.userInfo
-              }
-            })
-          }
-        })
-      },
       clickHandle (msg, ev) {
         console.log('clickHandle:', msg, ev)
+      },
+      loadMore () {
+        this.disabled = true;
+        setTimeout(() => {
+          for (let i = 0; i < 5; i++) {
+            this.list.push(this.list.length);
+          }
+          this.disabled = false;
+        }, 200);
       }
     },
 
     created () {
-      // 调用应用实例的方法获取全局数据
-      this.getUserInfo()
-    }
+    },
+    computed: {}
   }
 </script>
 
 <style scoped>
-  .userinfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .container {
+    color: red;
   }
-
-  .userinfo-avatar {
-    width: 128 rpx;
-    height: 128 rpx;
-    margin: 20 rpx;
-    border-radius: 50%;
-  }
-
-  .userinfo-nickname {
-    color: #aaa;
-  }
-
-  .usermotto {
-    margin-top: 150px;
-  }
-
-  .form-control {
-    display: block;
-    padding: 0 12px;
-    margin-bottom: 5px;
-    border: 1px solid #ccc;
-  }
-
-  .counter {
-    display: inline-block;
-    margin: 10px auto;
-    padding: 5px 10px;
-    color: blue;
-    border: 1px solid blue;
+  .swipe-img {
+    width:100%;
   }
 </style>

@@ -1,17 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Count from '@/pages/counter'
-import HelloWord from '@/components/HelloWorld'
+import Index from '@/pages/index'
 import Map from '@/pages/map'
+import VueLearn from '@/pages/vueLearnDemo';
+import {Lazyload} from 'vant';
 
-Vue.use(Router)
+Vue.use(Router);
+Vue.use(Lazyload)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWord
+      name: 'Home',
+      component: Index
     }, {
       path: '/count',
       name: 'count',
@@ -20,6 +23,10 @@ export default new Router({
       path: '/map',
       name: 'map',
       component: Map
+    }, {
+      path: '/vue-learn',
+      name: 'vue-learn',
+      component: VueLearn
     }
   ]
 })

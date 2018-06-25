@@ -24,9 +24,12 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 'off',
     // allow debugger during development
-    'no-debugger': 1,
+    'no-debugger': 0,
     // js语句结尾必须使用分号
     'semi': ['off', 'always'],
+    'spaced-comment': 0,
+    'no-undef': 0,
+
   },
   overrides: [
     {

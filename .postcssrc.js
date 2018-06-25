@@ -8,9 +8,8 @@ module.exports = {
     "autoprefixer": {},
     "postcss-pxtorem": {
       remUnit: 75,
-      propWhiteList: ['width'],/* propList: ['width']*/
+      propWhiteList: ['*'],
       minPixelValue: 2,
-
     }
   }
 }
